@@ -12,6 +12,7 @@ const flexRow = css`
 `;
 
 const productDescriptionCard = css`
+    display: flex;
     flex: 0 1 500px;
     margin-left: 1em;
     margin-bottom: 0.5em;

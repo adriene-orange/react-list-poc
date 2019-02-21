@@ -1,43 +1,45 @@
 import React from 'react';
-// import WarningBanner from './banners/warning';
-// import DiscountBanner from './banners/discount';
-// import SelectBox from './selectBox';
-// import ItemDescription from './itemDescription';
-// import UnitOfMeasureContainer from './unitOfMeasureContainer';
-// import FormattedPrice from './formattedPrice';
-// import DeleteItemButton from './deleteItemButton';
-// import ItemImage from './itemImage';
+import { css } from "emotion";
+
+const listItemContent = css`
+    flex: 1 1 95%;
+`;
+
+const listItemBody = css`
+    display: flex;
+`;
+
+const listItemImage = css`
+    margin-right: 1em;
+`;
+
+const listItemDescription = css`
+    flex: 0 1 70%;
+    h4 {
+        margin-top: 0;
+    }
+`;
+
+
 
 const ListItemContent = ({ item }) => {
     const {
         name,
         description,
-        race,
-        mainClass,
-        subClass,
-        abilities,
+        avatar,
     } = item;
 
-    // return (
-    //     <React.Fragment>
-    //         <WarningBanner warnings={warnings} />
-    //         <div className="inner-container">
-    //             <SelectBox isSelected={isSelected} />
-    //             <ItemImage imageUrl={imageUrl} />
-    //             <ItemDescription shortDescription={shortDescription} longDescription={longDescription} />
-    //             <DeleteItemButton />
-    //             <UnitOfMeasureContainer quantity={quantity} unitOfMeasure={unitOfMeasure} />
-    //             <FormattedPrice price={retailPrice} />
-    //             <DiscountBanner discountData={discountData} />
-    //         </div>
-    //     </React.Fragment>
-    // );
-    return <div>
-        {name}
-        {description}
-        {race}
-        {mainClass}
-        {subClass}
+    const body = (
+        <div className={listItemBody}>
+            <img src={avatar} alt={`Avatar of ${name}`} height="100px" className={listItemImage} />
+            <div className={listItemDescription} >
+                <h4>{name}</h4>
+                <p>{description}</p>
+            </div>
+        </div>
+    )
+    return <div className={listItemContent} >
+        {body}
     </div>
 
 }

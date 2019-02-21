@@ -4,6 +4,7 @@ const nottTheBrave = {
     race: 'Goblin',
     mainClass: 'Rogue',
     subClass: 'Arcane Trickster',
+    avatar: 'https://vignette.wikia.nocookie.net/criticalrole/images/d/dc/Nott.jpg/revision/latest?cb=20180116194408',
     stats: {
         level: 8,
         hp: 65,

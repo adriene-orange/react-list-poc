@@ -3,6 +3,7 @@ const calebWidogast = {
     description: 'Caleb is a reclusive, secretive human wizard with sticky fingers when it comes to magical items',
     race: 'Human',
     mainClass: 'Wizard',
+    avatar: 'https://vignette.wikia.nocookie.net/criticalrole/images/9/92/Caleb_Widogast.jpg/revision/latest?cb=20180116194349',
     subClass: 'School of Transmutation',
     stats: {
         level: 8,
