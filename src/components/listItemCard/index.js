@@ -9,7 +9,6 @@ import { css } from "emotion";
 const flexRow = css`
     display: flex;
     flex-direction: row;
-    align-items: center;
 `;
 
 const productDescriptionCard = css`
@@ -20,11 +19,18 @@ const productDescriptionCard = css`
     background-color: #fff;
 `;
 
+const checkBox = css`
+    height: 1em;
+    width: 1em;
+    margin: 1em 0;
+`;
+
 const ListItemCard = ({ item, numberedIndex }) => {
     return (
         <div className={flexRow}>
             <Checkbox
                 checked={item.isSelected}
+                className={checkBox}
             />
             <CardWrapper className={productDescriptionCard}  padding="medium" >
                 <ListItemNumber numberedIndex={numberedIndex} />
