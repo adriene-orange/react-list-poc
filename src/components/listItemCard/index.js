@@ -1,6 +1,7 @@
 import React from 'react';
 import ListItemNumber from './listItemNumber';
 import ListItemContents from './listItemContents';
+import DeleteListItemButon from './deleteListItemButton';
 import CardWrapper from '@quotecenter/component-library/CardWrapper';
 import Checkbox from "@quotecenter/component-library/Checkbox";
 import { css } from "emotion";
@@ -28,6 +29,7 @@ const ListItemCard = ({ item, numberedIndex }) => {
             <CardWrapper className={productDescriptionCard}  padding="medium" >
                 <ListItemNumber numberedIndex={numberedIndex} />
                 <ListItemContents item={item} />
+                <DeleteListItemButon />
             </CardWrapper>
         </div>
     );
