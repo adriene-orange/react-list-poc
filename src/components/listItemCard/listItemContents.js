@@ -20,13 +20,23 @@ const listItemDescription = css`
     }
 `;
 
-
+const listItemFooter = css`
+    display: flex;
+    margin: 1em 0;
+    justify-content: space-between;
+    h4 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+`;
 
 const ListItemContent = ({ item }) => {
     const {
         name,
         description,
         avatar,
+        mainClass,
+        subClass,
     } = item;
 
     const body = (
@@ -37,9 +47,21 @@ const ListItemContent = ({ item }) => {
                 <p>{description}</p>
             </div>
         </div>
-    )
+    );
+
+    const footer = (
+        <div className={listItemFooter} >
+            <div>
+                {`${mainClass} (${subClass})`}
+            </div>
+            <div>
+                <h4>Power Rating: 70/100</h4>
+            </div>
+        </div>
+    );
     return <div className={listItemContent} >
         {body}
+        {footer}
     </div>
 
 }
