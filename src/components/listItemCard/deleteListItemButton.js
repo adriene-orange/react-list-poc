@@ -12,13 +12,12 @@ const buttonStyle = css`
     opacity: 1;
 `;
 
-const DeleteLstItemButton = ({ listItemId, removeListItemFromList }) => {
-    const removeItemHandler = () => true;
+const DeleteListItemButton = ({ handleRemoveListItem }) => {
     return (
-        <button onClick={removeItemHandler} className={buttonStyle} >
+        <button onClick={handleRemoveListItem} className={buttonStyle} >
             X
         </button>
     );
 };
 
-export default DeleteLstItemButton;
+export default DeleteListItemButton;

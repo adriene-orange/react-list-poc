@@ -4,7 +4,7 @@ import map from 'lodash/map';
 import { css } from "emotion";
 
 import ListItemCard from '../listItemCard';
-import listActionCreators from '../../actions';
+import * as listActionCreators from '../../actions/list';
 
 const listContainer = css`
     height: 100vh;
@@ -46,13 +46,14 @@ const listHeader = css`
 `;
 
 const List = ({ items, handleRemoveListItem, handleToggleSelectListItem, teamPowerTotal }) => {
-    const listItems = map(items, (item, numberedIndex) => {
+    const listItems = map(items, (item, i) => {
+        const removeItemFromList = () => handleRemoveListItem(item);
        return (
            <ListItemCard
                 item={item}
-                key={`${numberedIndex + 1}`}
-                numberedIndex={numberedIndex + 1}
-                handleRemoveListItem={handleRemoveListItem}
+                key={`${i + 1}`}
+                index={i}
+                handleRemoveListItem={removeItemFromList}
                 handleToggleSelectListItem={handleToggleSelectListItem}
             />
         )
@@ -79,12 +80,12 @@ const List = ({ items, handleRemoveListItem, handleToggleSelectListItem, teamPow
 
 const mapStateToProps = ((state) => ({
     // TODO: create selectors for generating total
-    items: state.listItems.items,
+    items: state.listItems,
 }));
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    handleRemoveListItem: (itemId) => listActionCreators.removeItemFromListRequest(itemId),
-    handleToggleSelectListItem: (itemId) => listActionCreators.toggleSelectItem(itemId),
+const mapDispatchToProps = (dispatch) => ({
+    handleRemoveListItem: (item) => dispatch(listActionCreators.removeItemFromListRequest(item)),
+    handleToggleSelectListItem: (item) => dispatch(listActionCreators.toggleSelectItem(item)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

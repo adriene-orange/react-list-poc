@@ -25,7 +25,7 @@ const checkBox = css`
     margin: 1em 0;
 `;
 
-const ListItemCard = ({ item, numberedIndex }) => {
+const ListItemCard = ({ item, index, handleRemoveListItem, handleToggleSelectListItem }) => {
     return (
         <div className={flexRow}>
             <Checkbox
@@ -33,9 +33,9 @@ const ListItemCard = ({ item, numberedIndex }) => {
                 className={checkBox}
             />
             <CardWrapper className={productDescriptionCard}  padding="medium" >
-                <ListItemNumber numberedIndex={numberedIndex} />
+                <ListItemNumber numberedIndex={index+1} />
                 <ListItemContents item={item} />
-                <DeleteListItemButon />
+                <DeleteListItemButon handleRemoveListItem={handleRemoveListItem} />
             </CardWrapper>
         </div>
     );

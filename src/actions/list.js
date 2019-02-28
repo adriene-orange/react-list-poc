@@ -15,14 +15,15 @@ export const loadListFailure = (e) => ({
     e,
 });
 
-export const addItemToListRequest = (item) => ({
+export const addItemToListRequest = (item, index) => ({
     type: listActionTypes.ADD_ITEM_TO_LIST_REQUEST,
     item,
+    index,
 });
 
-export const addItemToListSuccess = (data) => ({
+export const addItemToListSuccess = (item) => ({
     type: listActionTypes.ADD_ITEM_TO_LIST_SUCCESS,
-    data,
+    item,
 });
 
 export const addItemToListFailure = (e) => ({
@@ -30,24 +31,24 @@ export const addItemToListFailure = (e) => ({
     e,
 });
 
-export const removeItemFromListRequest = (itemId) => ({
-    type: listActionTypes.REMOVE_ITEM_TO_LIST_REQUEST,
-    itemId,
+export const removeItemFromListRequest = (item) => ({
+    type: listActionTypes.REMOVE_ITEM_FROM_LIST_REQUEST,
+    item,
 });
 
-export const removeItemFromListSuccess = (data) => ({
-    type: listActionTypes.REMOVE_ITEM_TO_LIST_SUCCESS,
-    data,
+export const removeItemFromListSuccess = (item) => ({
+    type: listActionTypes.REMOVE_ITEM_FROM_LIST_SUCCESS,
+    item,
 });
 
 export const removeItemToListFailure = (e) => ({
-    type: listActionTypes.REMOVE_ITEM_TO_LIST_FAILURE,
+    type: listActionTypes.REMOVE_ITEM_FROM_LIST_FAILURE,
     e,
 });
 
-export const toggleSelectItem = (itemId) => ({
+export const toggleSelectItem = (item) => ({
     type: listActionTypes.TOGGLE_SELECT_LIST_ITEM,
-    itemId,
+    item,
 });
 
 export const unLoadCurrentList = () => ({

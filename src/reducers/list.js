@@ -15,7 +15,6 @@ const listReducer = (state=initialState(), action) => {
                 id: action.listId,
                 uiStatus: 'LOADING',
                 error: null,
-                items: [],
               });
         case listItemActionTypes.LOAD_LIST_SUCCESS:
               return update(state, {
