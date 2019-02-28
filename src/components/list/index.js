@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import map from 'lodash/map';
-import ListItemCard from '../listItemCard';
 import { css } from "emotion";
+
+import ListItemCard from '../listItemCard';
+import listActionCreators from '../../actions';
 
 const listContainer = css`
     height: 100vh;
@@ -42,9 +45,17 @@ const listHeader = css`
     margin: auto;
 `;
 
-const List = ({ items }) => {
+const List = ({ items, handleRemoveListItem, handleToggleSelectListItem, teamPowerTotal }) => {
     const listItems = map(items, (item, numberedIndex) => {
-       return <ListItemCard item={item} key={`${numberedIndex + 1}`} numberedIndex={numberedIndex + 1} />
+       return (
+           <ListItemCard
+                item={item}
+                key={`${numberedIndex + 1}`}
+                numberedIndex={numberedIndex + 1}
+                handleRemoveListItem={handleRemoveListItem}
+                handleToggleSelectListItem={handleToggleSelectListItem}
+            />
+        )
     });
     
     return (
@@ -59,11 +70,21 @@ const List = ({ items }) => {
             </div>
             <div className={footerContainer} >
                 <div className={totalPower} >
-                    <h3>Team Power Rating: 70/100 </h3>
+                    <h3>Team Power Rating: {teamPowerTotal}/100 </h3>
                 </div>
             </div>
         </div>
     );
 }
 
-export default List;
+const mapStateToProps = ((state) => ({
+    // TODO: create selectors for generating total
+    items: state.listItems.items,
+}));
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    handleRemoveListItem: (itemId) => listActionCreators.removeItemFromListRequest(itemId),
+    handleToggleSelectListItem: (itemId) => listActionCreators.toggleSelectItem(itemId),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);
