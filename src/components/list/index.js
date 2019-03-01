@@ -1,10 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import map from 'lodash/map';
+import React, { useCallback } from 'react';
 import { css } from "emotion";
+import map from 'lodash/map';
+import get from 'lodash/get';
+import uniqueId from 'lodash/uniqueId';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect'
 
-import ListItemCard from '../listItemCard';
+import ListItemCard from './listItemCard';
 import * as listActionCreators from '../../actions/list';
+
+const getItems = (state) => get(state, 'listItems');
+
+const selectItems = createSelector(getItems, (results) => results);
 
 const listContainer = css`
     height: 100vh;
@@ -45,20 +52,20 @@ const listHeader = css`
     margin: auto;
 `;
 
-const List = ({ items, handleRemoveListItem, handleToggleSelectListItem, teamPowerTotal }) => {
+const List = ({ items, handleRemoveListItem, handleToggleSelectListItem }) => {
+    const removeHandler = useCallback(handleRemoveListItem);
+    const selectHandler = useCallback(handleToggleSelectListItem);
     const listItems = map(items, (item, i) => {
-        const removeItemFromList = () => handleRemoveListItem(item);
-       return (
-           <ListItemCard
-                item={item}
-                key={`${i + 1}`}
-                index={i}
-                handleRemoveListItem={removeItemFromList}
-                handleToggleSelectListItem={handleToggleSelectListItem}
-            />
+        return (
+               <ListItemCard
+                    item={item}
+                    key={uniqueId(`character_${item.uiStatus}`)}
+                    index={i}
+                    handleRemoveListItem={() => removeHandler(item)}
+                    handleToggleSelectListItem={() => selectHandler(item)}
+                />
         )
     });
-    
     return (
         <div className={listContainer} >
             <div className={headerContainer} >
@@ -71,21 +78,26 @@ const List = ({ items, handleRemoveListItem, handleToggleSelectListItem, teamPow
             </div>
             <div className={footerContainer} >
                 <div className={totalPower} >
-                    <h3>Team Power Rating: {teamPowerTotal}/100 </h3>
+                    <h3>Team Power Rating: /100 </h3>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 const mapStateToProps = ((state) => ({
     // TODO: create selectors for generating total
-    items: state.listItems,
+    items: selectItems(state),
 }));
 
 const mapDispatchToProps = (dispatch) => ({
     handleRemoveListItem: (item) => dispatch(listActionCreators.removeItemFromListRequest(item)),
-    handleToggleSelectListItem: (item) => dispatch(listActionCreators.toggleSelectItem(item)),
+    handleToggleSelectListItem: (item) => {
+        if (item.uiStatus !== 'LOADING') {
+            dispatch(listActionCreators.toggleSelectItem(item))
+        }
+    },
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

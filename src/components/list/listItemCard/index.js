@@ -26,19 +26,22 @@ const checkBox = css`
 `;
 
 const ListItemCard = ({ item, index, handleRemoveListItem, handleToggleSelectListItem }) => {
+    const { uiStatus } = item;
     return (
-        <div className={flexRow}>
+        <div className={flexRow} onClick={handleToggleSelectListItem} >
             <Checkbox
-                checked={item.isSelected}
                 className={checkBox}
+                defaultChecked={item.isSelected}
+                disabled={uiStatus !== 'LOADED'}
             />
             <CardWrapper className={productDescriptionCard}  padding="medium" >
                 <ListItemNumber numberedIndex={index+1} />
-                <ListItemContents item={item} />
+                <ListItemContents item={item} loadingStatus={item.uiStatus} />
                 <DeleteListItemButon handleRemoveListItem={handleRemoveListItem} />
             </CardWrapper>
         </div>
     );
 };
+
 
 export default ListItemCard;

@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import List from './list';
-import ListItemCard from './listItemCard';
+import { Provider } from 'react-redux'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import list from '../reducers/list';
+import listItems from '../reducers/listItems';
+import ListItemCard from './list/listItemCard';
 import AddItemToListButton from './addItemToList';
-import nott from '../data/characters/nott';
+import RootSaga from '../sagas/listItems';
 
-// Temp component for testing standalone
-const App = () => (
-      <div className="App">
-        <header className="App-header">
-        </header>
-        <List />
-        <AddItemToListButton item={nott} />
-      </div>
+const sagaMiddleware = createSagaMiddleware();
+const reducers = combineReducers({ list, listItems });
+const store = createStore(reducers,
+  composeWithDevTools(applyMiddleware(
+    sagaMiddleware
+    ))
     );
+sagaMiddleware.run(RootSaga)
+// Temp component for testing standalone
+const App = () => {
+  return (
+    <Provider store={store}>
+      <div className="App">
+        <List />
+        <AddItemToListButton />
+      </div>
+      </Provider>
+    )
+};
 
 export default App;
 

@@ -30,7 +30,7 @@ const listItemFooter = css`
     }
 `;
 
-const ListItemContent = ({ item }) => {
+const ListItemContent = ({ item, loadingStatus }) => {
     const {
         name,
         description,
@@ -48,14 +48,14 @@ const ListItemContent = ({ item }) => {
             </div>
         </div>
     );
-
+    const footerTitle = loadingStatus === 'LOADED' ? 'Power Rating: 70/100' : 'LOADING';
     const footer = (
         <div className={listItemFooter} >
             <div>
                 {`${mainClass} (${subClass})`}
             </div>
             <div>
-                <h4>Power Rating: 70/100</h4>
+                <h4>{footerTitle}</h4>
             </div>
         </div>
     );
