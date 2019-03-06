@@ -22,10 +22,10 @@ sagaMiddleware.run(RootSaga)
 const App = () => {
   return (
     <Provider store={store}>
-      <div className="App">
+      <React.Fragment>
         <List />
         <AddItemToListButton />
-      </div>
+      </React.Fragment>
       </Provider>
     )
 };
